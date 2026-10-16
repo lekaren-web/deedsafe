@@ -1,0 +1,585 @@
+<title>DeedSafe Notary Field Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:wght@500;600&display=swap">
+<style>
+/* Layout: a field guide. Sticky contents rail on wide screens, one reading column,
+   tables for comparisons, a "seal" motif (notary stamp ink) as the single accent. */
+:root {
+  --paper: #f6f7fa;
+  --sheet: #ffffff;
+  --ink: #1b2033;
+  --muted: #5a6178;
+  --rule: #dde0ea;
+  --seal: #4b3fb8;        /* notary stamp ink violet */
+  --seal-soft: #ecebfb;
+  --good: #1f7a4d;
+  --good-soft: #e5f4ec;
+  --warn: #9a5b00;
+  --warn-soft: #fbf0dc;
+  --bad: #b3261e;
+  --bad-soft: #fbe8e6;
+  --display: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #12141c; --sheet: #1a1d28; --ink: #e6e8f0; --muted: #a2a8bd; --rule: #2e3243;
+    --seal: #a99cff; --seal-soft: #262447;
+    --good: #6fd3a0; --good-soft: #17322a; --warn: #f0b75a; --warn-soft: #3a2c12;
+    --bad: #ff8f86; --bad-soft: #3d1d1b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #12141c; --sheet: #1a1d28; --ink: #e6e8f0; --muted: #a2a8bd; --rule: #2e3243;
+  --seal: #a99cff; --seal-soft: #262447;
+  --good: #6fd3a0; --good-soft: #17322a; --warn: #f0b75a; --warn-soft: #3a2c12;
+  --bad: #ff8f86; --bad-soft: #3d1d1b;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16.5px;
+  line-height: 1.65;
+  padding-inline: 16px;
+  padding-block: 0 64px;
+}
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+@media (min-width: 960px) {
+  .wrap { grid-template-columns: 220px minmax(0, 1fr); }
+}
+
+/* Header */
+header.masthead {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-block: 48px 32px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 32px;
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.seal {
+  width: 92px; height: 92px; flex: none;
+  border-radius: 50%;
+  border: 3px solid var(--seal);
+  outline: 1px solid var(--seal);
+  outline-offset: 4px;
+  display: grid; place-items: center;
+  color: var(--seal);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-align: center;
+  line-height: 1.3;
+  text-transform: uppercase;
+  transform: rotate(-8deg);
+}
+.seal b { display: block; font-family: var(--display); font-size: 17px; letter-spacing: 0.02em; text-transform: none; }
+.masthead-text { min-width: 0; flex: 1 1 360px; }
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--seal);
+  margin: 0 0 8px;
+}
+h1 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(30px, 5vw, 44px);
+  line-height: 1.15;
+  margin: 0 0 12px;
+  text-wrap: balance;
+}
+.lede { color: var(--muted); max-width: 62ch; margin: 0; font-size: 18px; }
+.meta { font-family: var(--mono); font-size: 12.5px; color: var(--muted); margin-top: 14px; }
+
+/* Contents rail */
+nav.toc { font-size: 14px; }
+@media (min-width: 960px) {
+  nav.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; max-height: calc(100vh - 48px); overflow-y: auto; }
+}
+nav.toc p { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+nav.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; counter-reset: toc; }
+nav.toc li { counter-increment: toc; }
+nav.toc a {
+  display: grid; grid-template-columns: 26px 1fr; gap: 4px;
+  color: var(--ink); text-decoration: none;
+  padding: 5px 8px; border-radius: 6px;
+}
+nav.toc a::before { content: counter(toc, decimal-leading-zero); font-family: var(--mono); font-size: 11.5px; color: var(--muted); padding-top: 2px; }
+nav.toc a:hover, nav.toc a:focus-visible { background: var(--seal-soft); outline: none; }
+@media (max-width: 959px) {
+  nav.toc { border: 1px solid var(--rule); border-radius: 10px; padding: 16px; background: var(--sheet); }
+  nav.toc ol { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+}
+
+/* Article */
+main { min-width: 0; }
+section { padding-block: 8px 36px; border-bottom: 1px solid var(--rule); margin-bottom: 36px; scroll-margin-top: 24px; }
+section:last-of-type { border-bottom: none; }
+h2 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 27px;
+  line-height: 1.25;
+  margin: 0 0 6px;
+  text-wrap: balance;
+}
+.section-tag { font-family: var(--mono); font-size: 12px; color: var(--seal); letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 6px; }
+h3 { font-family: var(--body); font-weight: 600; font-size: 18px; margin: 28px 0 6px; }
+p, li { max-width: 68ch; }
+p { margin: 0 0 14px; }
+ul, ol { padding-left: 1.25em; margin: 0 0 16px; }
+li { margin-bottom: 6px; }
+a { color: var(--seal); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--seal); outline-offset: 2px; border-radius: 2px; }
+code, .mono { font-family: var(--mono); font-size: 0.88em; }
+sup a { text-decoration: none; font-family: var(--mono); font-size: 11px; padding-left: 1px; }
+strong { font-weight: 600; }
+
+/* Callouts by role */
+.takeaways {
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 22px 24px;
+}
+.takeaways ol { margin: 0; display: grid; gap: 8px; }
+.takeaways li { margin: 0; }
+.note {
+  border-left: 3px solid var(--seal);
+  background: var(--seal-soft);
+  padding: 14px 18px;
+  border-radius: 0 8px 8px 0;
+  margin: 18px 0;
+  max-width: 72ch;
+}
+.note.warn { border-color: var(--warn); background: var(--warn-soft); }
+.note p:last-child, .note ul:last-child { margin-bottom: 0; }
+.note .label { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; display: block; margin-bottom: 4px; color: var(--seal); }
+.note.warn .label { color: var(--warn); }
+
+/* Tables */
+.table-scroll { overflow-x: auto; margin: 16px 0 20px; border: 1px solid var(--rule); border-radius: 10px; background: var(--sheet); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 14.5px; line-height: 1.5; }
+th, td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--rule); }
+thead th { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; background: var(--paper); }
+tbody tr:last-child td { border-bottom: none; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.pill { display: inline-block; font-family: var(--mono); font-size: 11.5px; font-weight: 500; letter-spacing: 0.04em; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.pill.yes { color: var(--good); background: var(--good-soft); }
+.pill.part { color: var(--warn); background: var(--warn-soft); }
+.pill.no { color: var(--bad); background: var(--bad-soft); }
+
+/* Words to use / avoid */
+.wordgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 16px 0; }
+.wordcol { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 18px; min-width: 0; }
+.wordcol h4 { margin: 0 0 8px; font-size: 14px; font-family: var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+.wordcol.avoid h4 { color: var(--bad); }
+.wordcol.use h4 { color: var(--good); }
+.wordcol ul { margin: 0; padding-left: 1.1em; font-size: 15px; }
+
+/* Flow diagram */
+.flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 18px 0; counter-reset: step; }
+.flow div { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 14px; font-size: 14.5px; line-height: 1.45; counter-increment: step; min-width: 0; }
+.flow div::before { content: "Step " counter(step); display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.flow div.hit { border-color: var(--seal); box-shadow: inset 0 0 0 1px var(--seal); }
+
+/* Checklist */
+.checklist { list-style: none; padding: 0; display: grid; gap: 8px; }
+.checklist li { max-width: none; margin: 0; }
+.checklist label { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 14px; cursor: pointer; }
+.checklist input { margin-top: 5px; accent-color: var(--seal); width: 16px; height: 16px; }
+.checklist input:checked + span { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--rule); }
+.progress { font-family: var(--mono); font-size: 13px; color: var(--muted); margin: 0 0 10px; }
+
+/* Glossary & sources */
+dl.gloss { display: grid; grid-template-columns: 1fr; gap: 2px 24px; margin: 0; }
+@media (min-width: 680px) { dl.gloss { grid-template-columns: 190px minmax(0, 1fr); } }
+dl.gloss dt { font-weight: 600; padding-top: 10px; }
+dl.gloss dd { margin: 0; padding-top: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--rule); color: var(--ink); }
+@media (min-width: 680px) { dl.gloss dt { border-bottom: 1px solid var(--rule); padding-bottom: 10px; } }
+ol.sources { font-size: 14px; color: var(--muted); padding-left: 1.6em; }
+ol.sources li { max-width: none; overflow-wrap: anywhere; }
+
+footer { max-width: 1120px; margin: 0 auto; padding-top: 24px; border-top: 1px solid var(--rule); font-size: 13.5px; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+html { scroll-behavior: smooth; }
+</style>
+
+<header class="masthead">
+  <div class="seal" aria-hidden="true"><span>Field<b>Guide</b>DeedSafe</span></div>
+  <div class="masthead-text">
+    <p class="eyebrow">For the DeedSafe founder</p>
+    <h1>What a notary does, where deed fraud happens, and how to sell DeedSafe legally</h1>
+    <p class="lede">A plain-language briefing so you know exactly what you're selling, who will pay for it, and which lines not to cross.</p>
+    <p class="meta">Researched Oct 15, 2026 · Not legal advice. Use it to prepare for a conversation with a lawyer.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="toc" aria-label="Contents">
+    <p>Contents</p>
+    <ol>
+      <li><a href="#short">The short version</a></li>
+      <li><a href="#notary">What a notary does</a></li>
+      <li><a href="#cannot">What notaries can't do</a></li>
+      <li><a href="#journal">The notary journal</a></li>
+      <li><a href="#fraud">How deed fraud happens</a></li>
+      <li><a href="#fit">What DeedSafe can stop</a></li>
+      <li><a href="#market">Real estate or all notaries?</a></li>
+      <li><a href="#laws">The legal landscape</a></li>
+      <li><a href="#legal">Staying legal: checklist</a></li>
+      <li><a href="#lawyer">Questions for a lawyer</a></li>
+      <li><a href="#glossary">Glossary</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <section id="short">
+      <p class="section-tag">Start here</p>
+      <h2>The short version</h2>
+      <div class="takeaways">
+        <ol>
+          <li><strong>A notary verifies people, not documents.</strong> They confirm who signed and that the person signed willingly. They don't check whether the document is true, legal, or fair.</li>
+          <li><strong>Most deed theft is identity fraud.</strong> An impostor poses as the owner and signs a brand-new deed. Hashing that fake deed doesn't make it less fake. DeedSafe doesn't stop impostors.</li>
+          <li><strong>DeedSafe's real strength is the notary's alibi.</strong> If a notary records every real notarization, a deed carrying their seal with no matching record is a red flag. That targets the cases where fraudsters fake a notary or steal a real notary's seal.</li>
+          <li><strong>Focus on real estate, but sell to two sides.</strong> Loan signing agents create the records; title companies lose money to fraud and have budgets, so they're the likelier buyers. Notaries in general earn too little per act for $49/month to make sense.</li>
+          <li><strong>Never call it notarization.</strong> DeedSafe timestamps and fingerprints. Avoid "digital notary," "unforgeable," "court-proof," and "zero liability." Those claims create legal risk instead of removing it.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="notary">
+      <p class="section-tag">Basics</p>
+      <h2>What a notary actually does</h2>
+      <p>A notary public is a state-commissioned official who acts as an impartial witness. Every state sets its own rules, but the core job is the same: make sure the right person is signing, and that they're doing it knowingly and willingly.</p>
+
+      <h3>The main notarial acts</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Act</th><th>What the notary certifies</th><th>Typical use</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Acknowledgment</strong></td><td>The signer was identified and declared they signed willingly. The signer can sign before meeting the notary, but must appear in person to acknowledge it.<sup><a href="#s1">1</a></sup></td><td>Deeds, mortgages, powers of attorney. <strong>This is the one that matters for real estate.</strong></td></tr>
+            <tr><td><strong>Jurat</strong></td><td>The signer swore or affirmed that the document's contents are true, and signed in front of the notary.<sup><a href="#s1">1</a></sup></td><td>Affidavits, sworn statements</td></tr>
+            <tr><td><strong>Oath / affirmation</strong></td><td>The person made a spoken promise to tell the truth.</td><td>Depositions, officials taking office</td></tr>
+            <tr><td><strong>Copy certification</strong></td><td>A copy matches the original (only in some states, and only for some documents).<sup><a href="#s2">2</a></sup></td><td>Non-public records</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>The kinds of notary you'll meet</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Type</th><th>Who they are</th><th>Relevance to DeedSafe</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Traditional notary</strong></td><td>Anyone commissioned by their state. Nearly 4.4 million in the US, many notarizing only occasionally at a bank or office.<sup><a href="#s3">3</a></sup></td><td>Huge group, low spending</td></tr>
+            <tr><td><strong>Loan signing agent (LSA)</strong></td><td>A notary trained to guide borrowers through mortgage and refinance paperwork. Paid per package, roughly $50–$200.<sup><a href="#s4">4</a></sup></td><td><strong>Your best notary-side user.</strong> Handles deeds every week.</td></tr>
+            <tr><td><strong>Electronic notary (IPEN)</strong></td><td>Notarizes digital documents with an e-signature and e-seal, with the signer still physically present.</td><td>Documents are already digital, so hashing fits naturally</td></tr>
+            <tr><td><strong>Remote online notary (RON)</strong></td><td>Notarizes over live video with ID checks and a recording. Permanent laws in roughly 45–49 states plus DC, depending on how you count.<sup><a href="#s5">5</a></sup></td><td>Usually works inside a platform (Proof, NotaryCam, etc.) that already keeps tamper-evident records</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note"><span class="label">How a real estate signing goes</span>
+        <p>A title company hires an LSA. The LSA meets the seller, checks their government ID, has them sign the deed, completes the acknowledgment certificate, applies their seal, records the act in their journal, and returns the package. The title company then sends the deed to the county recorder, who scans it into public records. That last step turns the original into a scanned image, so the original file's hash won't match the county's copy.</p>
+      </div>
+    </section>
+
+    <section id="cannot">
+      <p class="section-tag">Boundaries</p>
+      <h2>What notaries can't do, and why it matters to you</h2>
+      <p>Unless they're also a licensed attorney, a notary can't practice law. In practice that means no legal advice, no explaining what a document means, no helping fill in or choose a legal form, and no picking the certificate type for the signer.<sup><a href="#s2">2</a></sup><sup><a href="#s6">6</a></sup> Notaries also can't notarize a transaction they have a financial interest in, and many states ban non-attorney notaries from calling themselves "notario."<sup><a href="#s7">7</a></sup></p>
+      <div class="note warn"><span class="label">Why this matters for DeedSafe</span>
+        <ul>
+          <li>Don't build features that tell a notary which certificate to use or what a document means. That could lead your users into the unauthorized practice of law.</li>
+          <li>Your ID-check checkboxes should <em>record</em> what the notary attests to. They should never <em>advise</em> on the law.</li>
+          <li>DeedSafe isn't a notary, so marketing must never suggest it performs notarizations or gives notarizations legal effect.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="journal">
+      <p class="section-tag">Closest existing concept</p>
+      <h2>The notary journal</h2>
+      <p>Many states require notaries to keep a journal: a log of every notarization with the date, signer, act type, document type, and how the signer was identified. It's the closest thing in the notary world to what DeedSafe does. Electronic journals face rules that sound a lot like your product's promises:</p>
+      <ul>
+        <li><strong>Can't be changed.</strong> Entries can't be edited after they're made.<sup><a href="#s8">8</a></sup></li>
+        <li><strong>Notary in control.</strong> Most states require the journal to be under the notary's sole control, password-protected (ideally with two-factor login), and encrypted.<sup><a href="#s8">8</a></sup></li>
+        <li><strong>Kept for years.</strong> Illinois requires at least 7 years after the last electronic act; North Carolina requires a backup for 10 years.<sup><a href="#s9">9</a></sup><sup><a href="#s10">10</a></sup></li>
+        <li><strong>Sensitive data limits.</strong> Texas, for example, bars recording driver's license numbers, Social Security numbers, or biometrics in the journal.<sup><a href="#s11">11</a></sup></li>
+        <li><strong>Sometimes public.</strong> In some states, journal entries can be requested as public records.<sup><a href="#s11">11</a></sup></li>
+      </ul>
+      <div class="note"><span class="label">Positioning tip</span>
+        <p>Present DeedSafe as a <strong>companion</strong> to the journal ("an independent, public timestamp for each notarization"), not as a <strong>replacement</strong>. Being someone's official journal means meeting every state's journal rules, which is a much bigger compliance job.</p>
+      </div>
+    </section>
+
+    <section id="fraud">
+      <p class="section-tag">The problem you're solving</p>
+      <h2>How deed fraud actually happens</h2>
+      <p>The most common pattern is <strong>seller impersonation</strong>. A fraudster finds a property with no mortgage and an owner who isn't around, poses as the owner, and "sells" it.</p>
+      <div class="flow">
+        <div>Picks a target: vacant land, absentee owner, no mortgage, or a recently deceased owner<sup><a href="#s12">12</a></sup></div>
+        <div>Contacts a real estate agent by email or text, avoids meeting, and asks to sign remotely</div>
+        <div class="hit">Gets the deed "notarized" with a fake ID, a fake notary, or a stolen real notary seal</div>
+        <div>Title company closes and the money is wired out</div>
+        <div>County records the deed; the real owner finds out months later</div>
+      </div>
+
+      <h3>The numbers</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Measure</th><th>Figure</th><th>Source</th></tr></thead>
+          <tbody>
+            <tr><td>Reported real estate fraud losses, 2025</td><td class="num">$275.1M (up from $173.6M)</td><td>FBI IC3 via ALTA<sup><a href="#s13">13</a></sup></td></tr>
+            <tr><td>Title firms that saw a seller impersonation attempt in the prior year</td><td class="num">59% (up from 28%)</td><td>ALTA 2026 survey<sup><a href="#s12">12</a></sup></td></tr>
+            <tr><td>Firms with an attempt in just the past month</td><td class="num">45% (up from 19%)</td><td>ALTA 2026 survey<sup><a href="#s12">12</a></sup></td></tr>
+            <tr><td>Firms with a paid fraud claim reporting costs over $100k</td><td class="num">About half</td><td>ALTA 2026 survey<sup><a href="#s12">12</a></sup></td></tr>
+            <tr><td>Notary problems in impersonation cases: fake notary credentials / real credentials used without permission</td><td class="num">43% / 31%</td><td>ALTA 2024 study, via a secondary source; check the original before quoting<sup><a href="#s14">14</a></sup></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>No national statistic tracks deed theft specifically; the FBI rolls it into "real estate fraud."<sup><a href="#s15">15</a></sup> Respondents also flagged a rise in deepfaked voices and images in these schemes.<sup><a href="#s12">12</a></sup></p>
+    </section>
+
+    <section id="fit">
+      <p class="section-tag">Most important section</p>
+      <h2>What DeedSafe can and can't stop</h2>
+      <p>A hash proves <em>this exact file existed at this time and hasn't changed since</em>. It says nothing about who signed it or whether the signer was who they claimed to be. Here's how that plays out:</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Scenario</th><th>Does DeedSafe help?</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>An impostor shows a fake ID to a real, honest notary</td><td><span class="pill no">No</span></td><td>The deed is new and genuinely notarized. Hashing it only proves the fake deed exists.</td></tr>
+            <tr><td>A fraudster forges a notary's seal and signature on a deed the notary never saw</td><td><span class="pill yes">Yes</span></td><td><strong>The alibi case.</strong> If the notary records every real act, a title company can check that notary's records and find nothing for that date. Works only if the notary uses DeedSafe consistently and the title company actually checks.</td></tr>
+            <tr><td>A fully fake notary with an invented commission</td><td><span class="pill part">Partly</span></td><td>"This notary isn't on DeedSafe" is a weak signal while few notaries use it. State commission lookups do more here.</td></tr>
+            <tr><td>Someone alters pages or numbers after signing</td><td><span class="pill yes">Yes</span></td><td>Re-hash the original digital file: any change, even one byte, breaks the match.</td></tr>
+            <tr><td>Checking the county's scanned copy years later</td><td><span class="pill part">Partly</span></td><td>The scan never matches the original hash. Someone has to get the original PDF from the title company, verify it, then compare the two copies by eye.</td></tr>
+            <tr><td>Owner wants to know if someone recorded a deed on their home</td><td><span class="pill no">No</span></td><td>That's recorder alert services (free in many counties) and title monitoring.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note"><span class="label">What this means for the product</span>
+        <ul>
+          <li><strong>Tie records to the notary.</strong> Every stamp should be findable by notary and date, not just by hash, so a title company can ask "did this notary really notarize something on June 3?"</li>
+          <li><strong>Keep personal data off the blockchain.</strong> Entries are public and permanent. Put only the hash and a random record ID on-chain; keep names and addresses out.</li>
+          <li><strong>Pitch it accurately:</strong> "proves which documents a notary actually handled, and when" is true and valuable. "Prevents deed fraud" is too broad.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="market">
+      <p class="section-tag">Business focus</p>
+      <h2>Real estate, or notaries in general?</h2>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th></th><th>General notaries</th><th>Real estate notaries (LSAs)</th><th>Title &amp; escrow companies</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Size</strong></td><td>~4.4M, mostly occasional</td><td>Smaller; no reliable count, and LSAs on forums call the field oversaturated<sup><a href="#s4">4</a></sup></td><td>Thousands of firms</td></tr>
+            <tr><td><strong>Money per act</strong></td><td class="num">$2–$15 per signature (state caps)<sup><a href="#s16">16</a></sup></td><td class="num">$50–$200 per signing<sup><a href="#s4">4</a></sup></td><td>One fraud claim can exceed $100k<sup><a href="#s12">12</a></sup></td></tr>
+            <tr><td><strong>Pain from deed fraud</strong></td><td>Low</td><td>Medium: their seal can be forged, or they can be fooled</td><td><strong>High:</strong> they pay the claims</td></tr>
+            <tr><td><strong>$49/month is…</strong></td><td>Hard to justify ($588/yr vs. a $100–$700 E&amp;O policy<sup><a href="#s17">17</a></sup>)</td><td>Possible for busy agents, a stretch for most</td><td>Small next to one claim</td></tr>
+            <tr><td><strong>Role in DeedSafe</strong></td><td>Not a focus</td><td><strong>Creates the records</strong></td><td><strong>Checks the records, and pays</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Recommendation</h3>
+      <p><strong>Focus on real estate.</strong> Treat it as a two-sided network:</p>
+      <ul>
+        <li><strong>Loan signing agents</strong> stamp each notarization. Keep this cheap or free, since every notary who joins makes the network more useful. Their pitch: "If your seal is ever forged, you can prove which signings you actually did."</li>
+        <li><strong>Title and escrow companies</strong> pay to verify notaries before closing, and to require their signing agents to use DeedSafe. They feel the losses, they already buy fraud tools (CertifID, for example, sells seller identity checks<sup><a href="#s18">18</a></sup>), and they can push adoption onto their signing agents.</li>
+      </ul>
+      <div class="note warn"><span class="label">Selling to title companies brings duties</span>
+        <p>Title companies are financial institutions under the Gramm-Leach-Bliley Act (GLBA). The FTC's Safeguards Rule makes them vet and monitor their software vendors.<sup><a href="#s19">19</a></sup> Expect security questionnaires asking about encryption, two-factor login, incident response, and eventually a SOC 2 audit. In 2025, the FTC acted against a mortgage company that sent customer files to a vendor it hadn't vetted properly.<sup><a href="#s19">19</a></sup> Your choice not to store documents helps a lot here, but document names and user records still count.</p>
+      </div>
+    </section>
+
+    <section id="laws">
+      <p class="section-tag">Context</p>
+      <h2>The legal landscape</h2>
+      <h3>States are acting on deed theft</h3>
+      <ul>
+        <li>About 12 states now have dedicated deed-theft laws, and 29 have none, according to one industry scorecard (counts vary by source).<sup><a href="#s20">20</a></sup></li>
+        <li><strong>Arizona</strong> now requires notaries to take a thumbprint for deeds, made recording a fraudulent document a felony, and requires photo ID to record a deed in person.<sup><a href="#s21">21</a></sup></li>
+        <li><strong>California</strong> requires every county to notify owners within 30 days of a deed being recorded, starting January 1, 2027.<sup><a href="#s21">21</a></sup></li>
+        <li><strong>Texas</strong> created the crimes of real property theft and fraud; <strong>Virginia</strong> gave settlement agents an identity-verification duty; <strong>Alabama</strong> requires seller ID checks in higher-risk deals.<sup><a href="#s21">21</a></sup></li>
+      </ul>
+      <p>Most of these laws alert owners <em>after</em> a fraudulent deed is recorded. Tools that act <em>before</em> closing are the gap, and that's DeedSafe's opening.</p>
+
+      <h3>Blockchain records as evidence</h3>
+      <ul>
+        <li><strong>Federal Rules of Evidence 902(13) and 902(14)</strong> let electronic records and copies verified by hash be admitted without a live witness, but only with a written certification from a qualified person and notice to the other side.<sup><a href="#s22">22</a></sup> The record doesn't prove itself; someone has to certify it. I found no federal case applying these rules to blockchain records.</li>
+        <li><strong>Vermont</strong> (12 V.S.A. § 1913) explicitly makes blockchain records self-authenticating, but only with a sworn declaration from a qualified person.<sup><a href="#s23">23</a></sup></li>
+        <li><strong>Arizona</strong> (A.R.S. § 44-7061) says blockchain signatures and records can't be denied legal effect just for being electronic. That's about contracts, not courtroom evidence.<sup><a href="#s24">24</a></sup></li>
+      </ul>
+      <div class="note"><span class="label">What this means</span>
+        <p>Be ready to provide a <strong>certification service</strong>: someone at DeedSafe who can sign a declaration explaining how a record was created. That's a real feature title companies and lawyers would value. "Automatically court-admissible" is a claim you can't make.</p>
+      </div>
+
+      <h3>Also on title companies' minds</h3>
+      <p>FinCEN's residential real estate reporting rule took effect March 1, 2026. A federal court in Texas struck it down on March 19, 2026, and FinCEN appealed in May. Title companies currently don't have to file those reports, but the rules may change.<sup><a href="#s25">25</a></sup></p>
+    </section>
+
+    <section id="legal">
+      <p class="section-tag">Action list</p>
+      <h2>Staying legal: your checklist</h2>
+      <h3>Words matter</h3>
+      <div class="wordgrid">
+        <div class="wordcol avoid">
+          <h4>Avoid</h4>
+          <ul>
+            <li>"Digital notary," "notarize," "notarization"</li>
+            <li>"Unforgeable," "foolproof," "tamper-proof"</li>
+            <li>"Court-admissible," "self-authenticating"</li>
+            <li>"Lawsuit immunity," "zero liability"</li>
+            <li>"Verifies identity," "prevents deed fraud"</li>
+            <li>"Shifts 100% of liability to the notary"</li>
+          </ul>
+        </div>
+        <div class="wordcol use">
+          <h4>Use instead</h4>
+          <ul>
+            <li>"Timestamp," "fingerprint," "anchor"</li>
+            <li>"Tamper-evident record"</li>
+            <li>"Independently verifiable on a public ledger"</li>
+            <li>"Supports your records with an independent timestamp"</li>
+            <li>"Helps detect altered documents and forged notary seals"</li>
+            <li>"Records the steps the notary attested to"</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Before you launch</h3>
+      <p class="progress" id="progress" aria-live="polite"></p>
+      <ul class="checklist" id="checklist">
+        <li><label><input type="checkbox" id="c1"><span>Have a lawyer rewrite the disclaimer in <code>brand.js</code>. "Assume zero liability" generally can't be enforced as written, and ToS limits vary by state.</span></label></li>
+        <li><label><input type="checkbox" id="c2"><span>Write Terms of Service and a Privacy Policy that say exactly what you store (hash, file name, user, time) and what you don't (the document).</span></label></li>
+        <li><label><input type="checkbox" id="c3"><span>Keep personal data off-chain. Only the hash and a random ID go on Solana, because blockchain entries can never be deleted.</span></label></li>
+        <li><label><input type="checkbox" id="c4"><span>Treat file names as possibly sensitive ("Smith deed 123 Main St"). Let users leave them blank or use a label.</span></label></li>
+        <li><label><input type="checkbox" id="c5"><span>Make the ID-check checkboxes record attestations, not give advice. Store who checked them and when.</span></label></li>
+        <li><label><input type="checkbox" id="c6"><span>Prepare a standard certification letter explaining how a record is created, for use as evidence.</span></label></li>
+        <li><label><input type="checkbox" id="c7"><span>Build a basic security program before approaching title companies: two-factor login, encryption, access logs, an incident response plan.</span></label></li>
+        <li><label><input type="checkbox" id="c8"><span>Have a lawyer draft the sales rep agreement before recruiting anyone on commission, so the reps are correctly classified as contractors or employees.</span></label></li>
+        <li><label><input type="checkbox" id="c9"><span>Check that your company name and marketing don't suggest DeedSafe is a notary or a law firm.</span></label></li>
+        <li><label><input type="checkbox" id="c10"><span>Ask an accountant how to handle the company's SOL (buying it, holding it, paying fees with it).</span></label></li>
+      </ul>
+    </section>
+
+    <section id="lawyer">
+      <p class="section-tag">Bring this list</p>
+      <h2>Questions for a lawyer</h2>
+      <p>Look for a lawyer who works with real estate tech or fintech startups. Bring these:</p>
+      <ol>
+        <li>Which states should I launch in first, given their notary and deed-fraud laws?</li>
+        <li>How should my Terms of Service limit liability, given that I sell to notaries and title companies?</li>
+        <li>Do the attestation checkboxes help or hurt me if a notary is fooled and someone sues?</li>
+        <li>Can notaries use DeedSafe alongside their official journal without breaking journal or confidentiality rules in their state?</li>
+        <li>What GLBA and state privacy obligations do I take on when selling to title companies?</li>
+        <li>Who at DeedSafe can serve as a "qualified person" for evidence certifications, and what should that declaration say?</li>
+        <li>How do I structure commission-only sales reps legally in the states where they'll work?</li>
+        <li>Is "DeedSafe" safe to trademark, and is any of my marketing language misleading?</li>
+      </ol>
+    </section>
+
+    <section id="glossary">
+      <p class="section-tag">Reference</p>
+      <h2>Glossary</h2>
+      <dl class="gloss">
+        <dt>Acknowledgment</dt><dd>A notarial act confirming a signer's identity and that they signed willingly. Standard for deeds.</dd>
+        <dt>ALTA</dt><dd>American Land Title Association, the title industry's trade group. Publishes the "Best Practices" title companies follow.</dd>
+        <dt>Commission</dt><dd>A notary's state-issued license, valid for a set term.</dd>
+        <dt>County recorder</dt><dd>The local office that records deeds and makes them public. Also called the register of deeds or clerk.</dd>
+        <dt>E&amp;O insurance</dt><dd>Errors and omissions insurance. Covers a notary's mistakes; often required by title companies.</dd>
+        <dt>GLBA</dt><dd>Gramm-Leach-Bliley Act. Federal law making financial institutions, title companies included, protect customer data and vet their vendors.</dd>
+        <dt>Hash (SHA-256)</dt><dd>A 64-character fingerprint of a file. Any change to the file produces a completely different hash.</dd>
+        <dt>Jurat</dt><dd>A notarial act where the signer swears the document's contents are true.</dd>
+        <dt>Loan signing agent</dt><dd>A notary who handles mortgage and real estate document packages.</dd>
+        <dt>Notary journal</dt><dd>The notary's log of every act. Required in many states, with rules on retention and access.</dd>
+        <dt>RON</dt><dd>Remote online notarization, done over live video with ID checks and a recording.</dd>
+        <dt>Seller impersonation</dt><dd>Fraud where someone poses as a property owner to sell or mortgage it.</dd>
+        <dt>Title company</dt><dd>Researches ownership history, insures the title, and often runs the closing and holds the money.</dd>
+        <dt>Unauthorized practice of law</dt><dd>Giving legal advice or legal services without a law license. Notaries must avoid it, and so should software built for them.</dd>
+      </dl>
+    </section>
+
+    <section id="sources">
+      <p class="section-tag">Citations</p>
+      <h2>Sources</h2>
+      <p>Several figures come from vendor blogs or surveys and are labeled as such. Before quoting any number in sales material, check the primary source.</p>
+      <ol class="sources">
+        <li id="s1"><a href="https://nationalnotary.org/notary-bulletin/blog/2015/04/key-differences-acknowledgment-jurat-certificates">National Notary Association: Key differences between acknowledgment and jurat certificates</a></li>
+        <li id="s2"><a href="https://myazbar.org/AZAttorney/PDF_Articles/0703Notary.pdf">Arizona Attorney: notary article (permitted acts, personal appearance)</a></li>
+        <li id="s3"><a href="https://www.notarize.com/blog/the-difference-between-a-loan-signing-agent-and-notary-public">Notarize: The difference between a loan signing agent and a notary public</a> (vendor)</li>
+        <li id="s4"><a href="https://financialmodelslab.com/blogs/business-insights/notary-signing-agent">Financial Models Lab: What a notary signing agent sells</a> (cites NNA range); <a href="https://forum.notarycafe.com/t/oversaturation-of-the-loan-signing-agent-business/49798">Notary Cafe forum: LSA oversaturation</a> (anecdotal)</li>
+        <li id="s5"><a href="https://www.notarycam.com/what-states-allow-remote-notary/">NotaryCam: 2026 guide to RON availability</a>; <a href="https://notarylive.com/blogs/ron-stats-2026-what-online-notary-service-data-shows/">NotaryLive: RON stats 2026</a> (vendors)</li>
+        <li id="s6"><a href="https://www.ncleg.net/EnactedLegislation/Statutes/HTML/BySection/Chapter_10B/GS_10B-20.html">North Carolina G.S. 10B-20: prohibitions on notaries</a></li>
+        <li id="s7"><a href="https://legislature.idaho.gov/statutesrules/idstat/Title51/T51CH1/SECT51-125">Idaho Code 51-125</a>; <a href="https://www.law.cornell.edu/regulations/texas/1-Tex-Admin-Code-SS-87-31">1 Tex. Admin. Code § 87.31</a>; <a href="https://nationalnotary.org/knowledge-center/news/law-updates/co-senate-bill-127">NNA: Colorado SB 127</a></li>
+        <li id="s8"><a href="https://www.nationalnotary.org/notary-bulletin/blog/2020/09/faq-remote-online-notarization-journals-and-recordings">NNA: FAQ on RON journals and recordings</a></li>
+        <li id="s9"><a href="https://www.nationalnotary.org/knowledge-center/news/law-updates/il-administrative-rules-2023-journal">NNA: Illinois administrative rules on journals (2023)</a></li>
+        <li id="s10"><a href="https://ncleg.gov/EnactedLegislation/Statutes/PDF/BySection/Chapter_10B/GS_10B-134.15.pdf">North Carolina G.S. 10B-134.15: electronic journals</a></li>
+        <li id="s11"><a href="https://bluenotaryonline.com/notary-journal-requirements-state-guide/">BlueNotary: Notary journal requirements by state</a> (vendor summary)</li>
+        <li id="s12"><a href="https://www.alta.org/business-operations/research-initiatives-and-resources/critical-issue-studies/seller-impersonation-fraud-study">ALTA: Seller Impersonation Fraud Study</a>; <a href="https://www.tlta.com/common/Uploaded%20files/documents/ALTA_SIF_Report091426.pdf">ALTA Critical Issues Study report (Sept 2026)</a></li>
+        <li id="s13"><a href="https://www.alta.org/news-and-publications/press-release/Latest-FBI-Cybercrime-Report-Shows-Real-Estate-Fraud-Losses-Rising-Reinforcing-Need-for-Strong-Consumer-Safeguards">ALTA: FBI cybercrime report shows real estate fraud losses rising</a></li>
+        <li id="s14"><a href="https://www.titlebarrier.com/blog/home-title-theft">TitleBarrier: Home title theft explained</a> (secondary source citing ALTA 2024)</li>
+        <li id="s15"><a href="https://www.nj.gov/sci/documents/Final%20Deed%20Fraud%20Report%209-9-2026.pdf">New Jersey State Commission of Investigation: Deed fraud report (Sept 2026)</a></li>
+        <li id="s16"><a href="https://www.notaries.com/articles/notary-fees/">Notaries.com: Notary fees by state 2026</a>; <a href="https://code.wvlegislature.gov/pdf/39-4-30/">W. Va. Code 39-4-30</a></li>
+        <li id="s17"><a href="https://help.loansigningsystem.com/en/articles/60-what-is-eando-errors-and-omissions-insurance-and-do-i-need-it">Loan Signing System: E&amp;O insurance</a></li>
+        <li id="s18"><a href="https://www.alta.org/news-and-publications/news/20230509-CertifID-Launches-Seller-Identity-Verification-Solution">ALTA: CertifID launches seller identity verification</a></li>
+        <li id="s19"><a href="https://www.techvera.com/resources/blog/2026-audit-readiness-checklist-title-agencies-alta-pillar-3">Techvera: ALTA Pillar 3 audit readiness</a>; <a href="https://www.consumerfinancemonitor.com/2020/12/22/ftc-brings-glba-safeguards-rule-enforcement-action-against-mortgage-vendor/">Consumer Finance Monitor: FTC Safeguards Rule action against mortgage vendor</a></li>
+        <li id="s20"><a href="https://www.financialcontent.com/article/gnwcq-2026-10-1-equityprotect-q3-2026-property-protection-scorecard-12-states-now-have-deed-theft-laws-but-most-homeowner-protections-still-work-only-after-fraud-occurs">EquityProtect Q3 2026 scorecard</a> (vendor); <a href="https://www.housingwire.com/articles/more-states-crack-down-on-deed-theft-as-real-estate-fraud-rises/">HousingWire: 29 states still lack deed theft laws</a></li>
+        <li id="s21"><a href="https://familyestateguide.com/estate-planning-data/deed-theft-watch/">Family Estate Guide: Deed theft laws by state, 2025–26</a>; <a href="https://homefrauddefense.org/blog/arizona-leads-nation-deed-fraud-protection-2026">Home Fraud Defense: Arizona deed fraud protection</a>; <a href="https://805title.com/california-deed-fraud-notification-program/">805 Title: California notification program</a>; <a href="https://capitol.texas.gov/tlodocs/892/analysis/pdf/SB00016F.pdf">Texas SB 16 analysis</a></li>
+        <li id="s22"><a href="https://www.fjc.gov/sites/default/files/materials/35/Evidence%20Rules%20902%2013%20and%2014%20Video%20Transcript.pdf">Federal Judicial Center: Evidence Rules 902(13) and (14)</a></li>
+        <li id="s23"><a href="https://legislature.vermont.gov/statutes/section/12/081/01913">Vermont 12 V.S.A. § 1913</a></li>
+        <li id="s24"><a href="https://www.azleg.gov/legtext/53leg/1r/laws/0097.pdf">Arizona HB 2417 (2017), A.R.S. § 44-7061</a></li>
+        <li id="s25"><a href="https://www.jdsupra.com/legalnews/fincen-residential-real-estate-rule-is-3058571/">JD Supra: FinCEN residential real estate rule is on hold</a></li>
+      </ol>
+    </section>
+  </main>
+</div>
+
+<footer>
+  Prepared for the DeedSafe project, October 15, 2026. This is research to help you ask better questions, not legal advice. Laws change, and most of the rules above vary by state.
+</footer>
+
+<script>
+(function () {
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('#checklist input'));
+  var progress = document.getElementById('progress');
+  var KEY = 'deedsafe-guide-checklist';
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { saved = {}; }
+  boxes.forEach(function (b) { b.checked = !!saved[b.id]; });
+  function update() {
+    var done = boxes.filter(function (b) { return b.checked; }).length;
+    progress.textContent = done + ' of ' + boxes.length + ' done';
+  }
+  boxes.forEach(function (b) {
+    b.addEventListener('change', function () {
+      saved[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+      update();
+    });
+  });
+  update();
+})();
+</script>

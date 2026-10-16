@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+/* DeedSafe tokens. A recorder's register: cool paper, ink, and notary-stamp violet
+   as the single accent. Semantic colors (good/warn/bad) are only for result states. */
+@theme {
+  --color-paper: #f4f5f8;
+  --color-sheet: #ffffff;
+  --color-ink: #1b2033;
+  --color-muted: #5a6178;
+  --color-rule: #dcdfe8;
+  --color-seal: #4b3fb8;
+  --color-seal-strong: #3b3099;
+  --color-seal-soft: #ecebfb;
+  --color-on-seal: #ffffff;
+  --color-good: #1f7a4d;
+  --color-good-soft: #e4f3eb;
+  --color-warn: #93570a;
+  --color-warn-soft: #fbf0dc;
+  --color-bad: #b3261e;
+  --color-bad-soft: #fbe8e6;
+}
+
+@theme inline {
+  --font-sans: var(--font-plex-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: var(--font-plex-serif), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper: #12141c;
+    --color-sheet: #1a1d28;
+    --color-ink: #e6e8f0;
+    --color-muted: #a2a8bd;
+    --color-rule: #2e3243;
+    --color-seal: #a99cff;
+    --color-seal-strong: #c2b8ff;
+    --color-seal-soft: #262447;
+    --color-on-seal: #15122e;
+    --color-good: #6fd3a0;
+    --color-good-soft: #17322a;
+    --color-warn: #f0b75a;
+    --color-warn-soft: #3a2c12;
+    --color-bad: #ff8f86;
+    --color-bad-soft: #3d1d1b;
+    color-scheme: dark;
+  }
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+/* Ruled-ledger background used behind the record list. */
+.ledger-rules {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 47px,
+    var(--color-rule) 47px,
+    var(--color-rule) 48px
+  );
+}
