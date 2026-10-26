@@ -34,6 +34,8 @@ Create an account from the Sign in page. Local Supabase skips email confirmation
 | `npm run db:reset` | Wipe the local database and re-apply migrations |
 | `npm run db:stop` | Stop local Supabase |
 | `npm run lint` | Lint |
+| `npm run storybook` | Component workshop at http://localhost:6007 (no Supabase or Solana needed; API responses are mocked) |
+| `npm run build-storybook` | Static Storybook build in `storybook-static/` |
 
 Supabase Studio (database browser) runs at http://127.0.0.1:54323 while Supabase is up.
 
@@ -43,6 +45,7 @@ Supabase Studio (database browser) runs at http://127.0.0.1:54323 while Supabase
 - `app/api/ledger` searches DeedSafe records directly on the public ledger.
 - `app/api/journal/[id]/verify` checks an entry against its ledger record.
 - `app/journal` is the notary's private journal.
+- `stories/` has Storybook stories for every component and state (loading, empty, errors, matches and mismatches), plus the color and type tokens.
 - `supabase/migrations` holds the schema, row-level security, and append-only rules.
 - `docs/notary-field-guide.html` is background research on notaries, deed fraud, and compliance.
 
